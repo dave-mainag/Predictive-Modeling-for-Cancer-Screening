@@ -1,5 +1,5 @@
 # PREDICTIVE MODELLING FOR CANCER SCREENING
-![Fight against Cancer](attachment:images.jpeg)
+![Fight against Cancer](Cancer.jpeg)
 
 
 # OVERVIEW
