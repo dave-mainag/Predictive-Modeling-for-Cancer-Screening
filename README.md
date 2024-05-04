@@ -1,122 +1,76 @@
-{
- "cells": [
-  {
-   "attachments": {
-    "images.jpeg": {
-     "image/jpeg": "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"
-    }
-   },
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "# PREDICTIVE MODELLING FOR CANCER SCREENING\n",
-    "![images.jpeg](attachment:images.jpeg)\n",
-    "\n",
-    "\n",
-    "# OVERVIEW\n",
-    "\n",
-    "With cancer being the third leading cause of death in the country and late diagnosis contributing to high mortality rates, there is an urgent need to enhance screening programs and increase participation rates. This project aims at improving cancer screening efforts through data-driven strategies. By identifying high-risk populations and implementing targeted interventions, we anticipate increased screening participation rates, earlier detection of cancers, and improved treatment outcomes. Through these concerted efforts, we envision a future where cancer screening is widely accessible, culturally sensitive, and seamlessly integrated into routine healthcare services. Ultimately, this initiative has the potential to reduce cancer-related morbidity and mortality, alleviate the burden on healthcare systems and save lives in Kenya. \n",
-    "\n",
-    "\n",
-    "## Business Problem\n",
-    "\n",
-    "The project focuses on improving cancer screening efforts in Kenya by addressing barriers to early detection and management through targeted interventions and data-driven strategies. Cancer screening is critical for identifying cancer at its early stages when treatment is most effective. Despite advancements in medical technology and increased awareness of cancer risk factors, many individuals still receive diagnoses at advanced stages, when treatment options are limited, and prognosis is poor. This delay in diagnosis not only exacerbates the physical and emotional burden on patients and their families but also significantly impacts healthcare systems, leading to higher treatment costs and reduced effectiveness. In Kenya, several challenges hinder widespread access to and utilization of screening services, including limited awareness, inadequate healthcare infrastructure, and financial constraints.\n",
-    "\n",
-    "## Business Objectives\n",
-    "\n",
-    "+ Early Detection: Detect cancer at its earliest stages, using behavioral health factors, to improve treatment outcomes and reduce mortality rates.\n",
-    "\n",
-    "+ Reduce cancer-related morbidity and mortality using predictive modelling\n",
-    "\n",
-    "+ Effectiveness: Improve effectiveness of cancer screening through innovative methods and strategic partnerships.\n",
-    "\n",
-    "+ Public Health Impact: Contribute to reducing the burden of cancer on public health by implementing evidence-based screening programs.\n",
-    "\n",
-    "\n",
-    "## Data Understanding\n",
-    "\n",
-    "The project will involve collecting the Behavioral Risk Factor Surveillance System (BRFSS) data for the year 2020, which is compiled and maintained by the Centers for Disease Control and Prevention (CDC) in the United States. BRFSS is a nationwide survey that collects data on health-related behaviors, chronic health conditions, and use of preventive services among adults in the United States.\n",
-    "The raw data will be obtained directly from the CDC, which regularly releases BRFSS datasets to the public for research and analysis purposes.\n",
-    "\n",
-    "This dataset has a total of 401,959 records with 50 features(variables). The features used in the analysis include but not limited to age, gender, general health, physical health, mental health, smoking status, alcohol consumption, physical activity, weight, height and history of cancer screening.\n",
-    "\n",
-    "## Data Preparation\n",
-    "\n",
-    "The BRFSS data for 2020 is stored in tabular format, as a csv file. Variables include demographic info, health behaviors, chronic conditions among other features, with a mix of categorical, numerical, and ordinal types.\n",
-    "\n",
-    "## Data Preprocessing and Visualizations\n",
-    "\n",
-    "Preprocessing steps involved handling missing values, feature engineering using columns with high missing data, dropping columns with high missing values, dropping the rows with misssing values in our target variable, engineering the target variable (y) from multiple columns, splitting data into predictor variables (X) and target variables (y), encoding categorical variables, scaling numerical features, and removing redundant variables.\n",
-    "\n",
-    "Visualization techniques include barplots and histograms to understand data distributions.\n",
-    "\n",
-    "# Modelling\n",
-    "\n",
-    "The project employs various machine learning algorithms to model behavioral health factors for early cancer screening. Models exlpored include Logistic Regression, Random Forest, Linear Support Vector Machines (SVM), Naive Bayes, Neural Network and XGBoost.\n",
-    "\n",
-    "## Model Performance\n",
-    "\n",
-    "|No|Model|Test Accuracy\n",
-    "|-|-|-|\n",
-    "|1|Logistic Regression (Base) |\t0.6956|\n",
-    "|2|Logistic Regression (Tuned) |0.6857|\n",
-    "|3|Random Forest (Base) |0.8329|\n",
-    "|4|Random Forest (Tuned) |0.8283|\n",
-    "|5|Linear Support Vector Machines (SVM) (Base) |0.6819|\n",
-    "|6|Linear Support Vector Machines (SVM) (Tuned) |0.6821|\n",
-    "|7|Naive Bayes |0.5921|\n",
-    "|8|Neural Network (Base) |0.1641|\n",
-    "|9|XGBoost (Base) |0.8364|\n",
-    "\n",
-    "\n",
-    "# Recommendations\n",
-    "\n",
-    "XGBoost model was the best performing model \n",
-    "XGBOost model woild be pickled and used at the back end of a flask app to predict cancer risk for new users using\n",
-    "their behaviroal health factors\n",
-    "\n",
-    "# Conclusions\n",
-    "\n",
-    "The project demonstrates the feasibility of leveraging behavioral health factors to construct predictive models, enhancing screening initiatives for improved treatment outcomes and lower mortality rates. \n",
-    "Additionally, it showcases the potential for establishing strategic partnerships with healthcare providers, government agencies, and non-governmental organizations (NGOs) to effectively implement and scale machine learning-driven cancer screening programs across Kenya.\n",
-    "\n",
-    "# Contributors\n",
-    "1. Branton Kieti\n",
-    "2. David Githaiga\n",
-    "3. Baker Otieno\n",
-    "4. Faith Gitau\n",
-    "5. David Kirianja\n",
-    "6. Linet Wangui\n",
-    "\n"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python (learn)",
-   "language": "python",
-   "name": "learn"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.8.5"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 4
-}
+# PREDICTIVE MODELLING FOR CANCER SCREENING
+![Fight against Cancer](attachment:images.jpeg)
+
+
+# OVERVIEW
+
+With cancer being the third leading cause of death in the country and late diagnosis contributing to high mortality rates, there is an urgent need to enhance screening programs and increase participation rates. This project aims at improving cancer screening efforts through data-driven strategies. By identifying high-risk populations and implementing targeted interventions, we anticipate increased screening participation rates, earlier detection of cancers, and improved treatment outcomes. Through these concerted efforts, we envision a future where cancer screening is widely accessible, culturally sensitive, and seamlessly integrated into routine healthcare services. Ultimately, this initiative has the potential to reduce cancer-related morbidity and mortality, alleviate the burden on healthcare systems and save lives in Kenya. 
+
+## Business Problem
+
+The project focuses on improving cancer screening efforts in Kenya by addressing barriers to early detection and management through targeted interventions and data-driven strategies. Cancer screening is critical for identifying cancer at its early stages when treatment is most effective. Despite advancements in medical technology and increased awareness of cancer risk factors, many individuals still receive diagnoses at advanced stages, when treatment options are limited, and prognosis is poor. This delay in diagnosis not only exacerbates the physical and emotional burden on patients and their families but also significantly impacts healthcare systems, leading to higher treatment costs and reduced effectiveness. In Kenya, several challenges hinder widespread access to and utilization of screening services, including limited awareness, inadequate healthcare infrastructure, and financial constraints.
+
+## Business Objectives
+
++ Early Detection: Detect cancer at its earliest stages, using behavioral health factors, to improve treatment outcomes and reduce mortality rates.
+
++ Reduce cancer-related morbidity and mortality using predictive modelling
+
++ Effectiveness: Improve effectiveness of cancer screening through innovative methods and strategic partnerships.
+
++ Public Health Impact: Contribute to reducing the burden of cancer on public health by implementing evidence-based screening programs.
+
+## Data Understanding
+
+The project will involve collecting the Behavioral Risk Factor Surveillance System (BRFSS) data for the year 2020, which is compiled and maintained by the Centers for Disease Control and Prevention (CDC) in the United States. BRFSS is a nationwide survey that collects data on health-related behaviors, chronic health conditions, and use of preventive services among adults in the United States.
+The raw data will be obtained directly from the CDC, which regularly releases BRFSS datasets to the public for research and analysis purposes.
+
+This dataset has a total of 401,959 records with 50 features(variables). The features used in the analysis include but not limited to age, gender, general health, physical health, mental health, smoking status, alcohol consumption, physical activity, weight, height and history of cancer screening.
+
+## Data Preparation
+
+The BRFSS data for 2020 is stored in tabular format, as a csv file. Variables include demographic info, health behaviors, chronic conditions among other features, with a mix of categorical, numerical, and ordinal types.
+
+## Data Preprocessing and Visualizations
+
+Preprocessing steps involved handling missing values, feature engineering using columns with high missing data, dropping columns with high missing values, dropping the rows with misssing values in our target variable, engineering the target variable (y) from multiple columns, splitting data into predictor variables (X) and target variables (y), encoding categorical variables, scaling numerical features, and removing redundant variables.
+
+Visualization techniques include barplots and histograms to understand data distributions.
+
+# Modelling
+
+The project employs various machine learning algorithms to model behavioral health factors for early cancer screening. Models exlpored include Logistic Regression, Random Forest, Linear Support Vector Machines (SVM), Naive Bayes, Neural Network and XGBoost.
+
+## Model Performance
+
+|No|Model|Test Accuracy
+|-|-|-|
+|1|Logistic Regression (Base) |	0.6956|
+|2|Logistic Regression (Tuned) |0.6857|
+|3|Random Forest (Base) |0.8329|
+|4|Random Forest (Tuned) |0.8283|
+|5|Linear Support Vector Machines (SVM) (Base) |0.6819|
+|6|Linear Support Vector Machines (SVM) (Tuned) |0.6821|
+|7|Naive Bayes |0.5921|
+|8|Neural Network (Base) |0.1641|
+|9|XGBoost (Base) |0.8364|
+
+
+# Recommendations
+
+XGBoost model was the best performing model 
+XGBOost model woild be pickled and used at the back end of a flask app to predict cancer risk for new users using
+their behaviroal health factors
+
+# Conclusions
+
+The project demonstrates the feasibility of leveraging behavioral health factors to construct predictive models, enhancing screening initiatives for improved treatment outcomes and lower mortality rates. 
+Additionally, it showcases the potential for establishing strategic partnerships with healthcare providers, government agencies, and non-governmental organizations (NGOs) to effectively implement and scale machine learning-driven cancer screening programs across Kenya.
+
+# Contributors
+1. Branton Kieti
+2. David Githaiga
+3. Baker Otieno
+4. Faith Gitau
+5. David Kirianja
+6. Linet Wangui
