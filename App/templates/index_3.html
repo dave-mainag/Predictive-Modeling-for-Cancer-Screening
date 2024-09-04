@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Risk Assessment Questionnaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure it takes the full height of the viewport */
+        }
+
+        form {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 96%;
+            justify-content: center; /* Centers the child .question elements horizontally */
+            align-items: center; /* Centers the child .question elements vertically */
+            padding: 20px; /* Optional: padding around content */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: add shadow */
+        }
+
+        .question {
+            display: none;
+            flex: 1;
+            max-width: 50%; /* Each question takes up 50% of the container's width */
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 16px; 
+            color: #333;
+            font-family: 'Helvetica Neue', sans-serif; 
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+            display: block;
+        }
+        
+        .navigation button:hover {
+            color: #0056b3;
+            cursor: pointer;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #result {
+            display: none; /* Hide by default */
+            width: 60%;
+            margin: 20px auto; /* Center horizontally with some space above */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        
+        #navigation {
+            display: block; /* Display by default */
+        }
+
+        .description {
+            background-color: #f7f9fc; /* Light background for readability */
+            border: 1px solid #dde3eb; /* Subtle border to define the section */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Space around the text */
+            width: 60%; /* Adjust the width of the description box */
+            margin: 20px auto; /* Center the box horizontally with space above and below */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+            text-align: center; /* Center the text */
+            font-family: 'Helvetica Neue', sans-serif; /* Clean and readable font */
+            color: #333; /* Dark text for contrast */
+        }
+
+        .description h3 {
+            font-size: 0.9em; /* Smaller font size */
+            font-weight: 400; /* Regular weight */
+            font-style: italic; /* Italicize the text */
+            margin-bottom: 0; /* Remove extra space below the heading */
+            line-height: 1.6; /* Improve text readability */
+        }
+    </style>
+</head>
+<body>
+    <form id="questionnaire-form" action="/predict", method="post">
+        <div class="description">
+            <h3>This cancer prediction model was developed using data from the CDC's Behavioral Risk Factor Surveillance System (BRFSS) for the year 2020. 
+                As the survey was specific to U.S. citizens, this questionnaire is tailored for them. 
+                Please complete the form below to assess your probability of cancer based on this model. 
+                The model has an accuracy of 83%.
+            </h3>
+        </div>    
+        <div class="question-container">
+            <!--Page 1-->
+            <div class="question" id="page1">
+                <!-- Questions 1 to 19 -->
+                <label for="FIPS">Select your state:</label>
+                <select id="FIPS" name="FIPS">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="01">Alabama</option>
+                    <option value="02">Alaska</option>
+                    <option value="04">Arizona</option>
+                    <option value="05">Arkansas</option>
+                    <option value="06">California</option>
+                    <option value="08">Colorado</option>
+                    <option value="09">Connecticut</option>
+                    <option value="10">Delaware</option>
+                    <option value="11">District of Colombia</option>
+                    <option value="12">Florida</option>
+                    <option value="13">Georgia</option>
+                    <option value="15">Hawaii</option>
+                    <option value="16">Idaho</option>
+                    <option value="17">Illinois</option>
+                    <option value="18">Indiana</option>
+                    <option value="19">Iowa</option>
+                    <option value="20">Kansas</option>
+                    <option value="21">Kentucky</option>
+                    <option value="22">Louisiana</option>
+                    <option value="23">Maine</option>
+                    <option value="24">Maryland</option>
+                    <option value="25">Massachusetts</option>
+                    <option value="26">Michigan</option>
+                    <option value="27">Minnesota</option>
+                    <option value="28">Mississippi</option>
+                    <option value="29">Missouri</option>
+                    <option value="30">Montana</option>
+                    <option value="31">Nebraska</option>
+                    <option value="32">Nevada</option>
+                    <option value="33">New Hampshire</option>
+                    <option value="34">New Jersey</option>
+                    <option value="35">New Mexico</option>
+                    <option value="36">New York</option>
+                    <option value="37">North Carolina</option>
+                    <option value="38">North Dakota</option>
+                    <option value="39">Ohio</option>
+                    <option value="40">Oklahoma</option>
+                    <option value="41">Oregon</option>
+                    <option value="42">Pennsylvania</option>
+                    <option value="44">Rhode Island</option>
+                    <option value="45">South Carolina</option>
+                    <option value="46">South Dakota</option>
+                    <option value="47">Tennessee</option>
+                    <option value="48">Texas</option>
+                    <option value="49">Utah</option>
+                    <option value="50">Vermont</option>
+                    <option value="51">Virginia</option>
+                    <option value="53">Washington</option>
+                    <option value="54">West Virginia</option>
+                    <option value="55">Wisconsin</option>
+                    <option value="56">Wyoming</option>
+                    <option value="66">Guam</option>
+                    <option value="72">Puerto Rico</option>
+                </select>
+                <label for="X_URBSTAT">How would you describe your county:</label>
+                <select id="X_URBSTAT" name="X_URBSTAT">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Urban County</option>
+                    <option value="2">Rural County</option>
+                </select>
+                <label for="X_AGEG5YR">What is your age group:</label>
+                <select id="X_AGEG5YR" name="X_AGEG5YR">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">18 - 24</option>
+                    <option value="2">25 - 29</option>
+                    <option value="3">30 - 34</option>
+                    <option value="4">35 - 39</option>
+                    <option value="5">40 - 44</option>
+                    <option value="6">45 - 49</option>
+                    <option value="7">50 - 54</option>
+                    <option value="8">55 - 59</option>
+                    <option value="9">60 - 64</option>
+                    <option value="10">65 - 69</option>
+                    <option value="11">70 - 74</option>
+                    <option value="12">75 - 79</option>
+                    <option value="13">80 or older</option>
+                    <option value="14">Prefer not to tell</option>
+                </select>
+                <label for="SEXVAR"> What is your gender?:</label>
+                <select id="SEXVAR" name="SEXVAR">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                </select>
+                <label for="GENHLTH">How is your general health?:</label>
+                <select id="GENHLTH" name="GENHLTH">
+                    <option value="" disabled selected> Select an option</option>
+                    <option value="1">Excellent</option>
+                    <option value="2">Very Good</option>
+                    <option value="3">Good</option>
+                    <option value="4">Fair</option>
+                    <option value="5">Poor</option>
+                </select>
+                <label for="PHYSHLTH">How many days in the past 30 was your physical health poor?:</label>
+                <input type="number" id="PHYSHLTH" name="PHYSHLTH" min="0" max="30" required>
+                <label for="MENTHLTH">How many days in the past 30 was your mental health poor?:</label>
+                <input type="number" id="MENTHLTH" name="MENTHLTH" min="0" max="30" required>
+                <label for="HLTHPLN1">Do you have any kind of health care coverage?:</label>
+                <select id="HLTHPLN1" name="HLTHPLN1">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="EXERANY2">In the past month, did you engage in any physical activities or exercises like running, calisthenics, golf, gardening, or walking for exercise?:</label>
+                <select id="EXERANY2" name="EXERANY2">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="SLEPTIM1">How many hours do you sleep in 24 hours?:</label>
+                <input type="number" id="SLEPTIM1" name="SLEPTIM1" min="0" max="24" required>
+                <label for="CVDINFR4">Ever been told you had a heart attack (myocardial infarction)?:</label>
+                <select id="CVDINFR4" name="CVDINFR4">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="CVDCRHD4">Ever been told you had coronary heart disease (angina)?:</label>
+                <select id="CVDCRHD4" name="CVDCRHD4">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="CVDSTRK3">(Ever told) (you had) a stroke?:</label>
+                <select id="CVDSTRK3" name="CVDSTRK3">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="ASTHMA3">(Ever told) (you had) asthma?:</label>
+                <select id="ASTHMA3" name="ASTHMA3">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="CHCCOPD2">Ever diagnosed with COPD, emphysema, or chronic bronchitis?:</label>
+                <select id="CHCCOPD2" name="CHCCOPD2">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="HAVARTH4">Ever diagnosed with some form of arthritis, rheumatoid arthritis, gout, lupus, or fibromyalgia?:</label>
+                <select id="HAVARTH4" name="HAVARTH4">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="ADDEPEV3">Ever diagnosed with some form of depressive disorder:</label>
+                <select id="ADDEPEV3" name="ADDEPEV3">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="CHCKDNY2">Ever been diagnosed with kidney disease (excluding kidney stones, bladder infection, or incontinence)?:</label>
+                <select id="CHCKDNY2" name="CHCKDNY2">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="DIABETE4"> Ever been diagnosed with diabetes?:</label>
+                <select id="DIABETE4" name="DIABETE4">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <div class="navigation">
+                    <button type="button" class="next-btn" onclick="showPage(2)">Next</button>
+                </div>
+            </div>
+            <div class="question" id="page2" style="display: none;">
+                <!-- Questions 20 to 37 -->
+                <label for="LASTDEN4">How long has it been since you last visited any type of dentist or dental clinic for any reason?:</label>
+                <select id="LASTDEN4" name="LASTDEN4">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Within the past year</option>
+                    <option value="2">Within the past 2 years</option>
+                    <option value="3">Within the past 5 years</option>
+                    <option value="4">5 or more years ago</option>
+                    <option value="8">Never</option>
+                </select>
+                <label for="RMVTETH4">How many permanent teeth have been removed due to decay or gum disease (excluding teeth lost from injury or orthodontics)?:</label>
+                <select id="RMVTETH4" name="RMVTETH4">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">1 to 5</option>
+                    <option value="2">6 or more, but not all</option>
+                    <option value="3">All</option>
+                    <option value="8">None</option>
+                </select>
+                <label for="MARITAL">Are you (marital status):</label>
+                <select id="MARITAL" name="MARITAL">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Married</option>
+                    <option value="2">Divorced</option>
+                    <option value="3">Widowed</option>
+                    <option value="4">Separated</option>
+                    <option value="5">Never married</option>
+                    <option value="6">A member of an unmarried couple</option>
+                </select>
+                <label for="EDUCA">What's the highest level of education you've completed?:</label>
+                <select id="EDUCA" name="EDUCA">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Never attended school or only kindergarten</option>
+                    <option value="2">Grades 1 through 8 (Elementary)</option>
+                    <option value="3">Grades 9 through 11 (Some high school)</option>
+                    <option value="4">Grade 12 or GED (High school graduate)</option>
+                    <option value="5">College 1 year to 3 years (Some college or technical school)</option>
+                    <option value="6">College 4 years or more (College graduate)</option>
+                </select>
+                <label for="RENTHOM1">Do you own or rent your home?:</label>
+                <select id="RENTHOM1" name="RENTHOM1">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Own</option>
+                    <option value="2">Rent</option>
+                    <option value="3">Other arrangement</option>
+                </select>
+                <label for="VETERAN3">Have you ever served on active duty in the U.S. Armed Forces, including the regular military, National Guard, or reserves?:</label>
+                <select id="VETERAN3" name="VETERAN3">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="EMPLOY1"> Are you currently... (Employment Status)?:</label>
+                <select id="EMPLOY1" name="EMPLOY1">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Employed for wages</option>
+                    <option value="2">Self-employed</option>
+                    <option value="3">Out of work for 1 year or more</option>
+                    <option value="4">Out of work for less than 1 year</option>
+                    <option value="5">A homemaker</option>
+                    <option value="6">A student</option>
+                    <option value="7">Retired</option>
+                    <option value="8">Unable to work</option>
+                </select>
+                <label for="CHILDREN">How many children less than 18 years of age live in your household?:</label>
+                <input type="number" id="CHILDREN" name="CHILDREN" min="0" max="87" required>
+                <label for="INCOME2">What is your total annual household income?:</label>
+                <select id="INCOME2" name="INCOME2">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Less than $10,000</option>
+                    <option value="2">$10,000 to less than $15,000</option>
+                    <option value="3">$15,000 to less than $20,000</option>
+                    <option value="4">$20,000 to less than $25,000</option>
+                    <option value="5">$25,000 to less than $35,000</option>
+                    <option value="6">$35,000 to less than $50,000</option>
+                    <option value="7">$50,000 to less than $75,000</option>
+                    <option value="8">$75,000 or more</option>
+                </select>
+                <label for="WEIGHT2">How much do you weigh without shoes? (Weight in Pounds):</label>
+                <input type="number" id="WEIGHT2" name="WEIGHT2" min="50" max="800" required>
+                <label for="HTIN4">How tall are you without shoes? (Height in Inches):</label>
+                <input type="number" id="HTIN4" name="HTIN4" min="36" max="95" required>
+                <label for="DEAF">Are you deaf or do you have serious difficulty hearing?:</label>
+                <select id="DEAF" name="DEAF">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="BLIND">Are you blind or have severe difficulty seeing, even with glasses?:</label>
+                <select id="BLIND" name="BLIND">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="SEATBELT">How often do you use seat belts while driving or riding in a car?:</label>
+                <select id="SEATBELT" name="SEATBELT">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Always</option>
+                    <option value="2">Nearly always</option>
+                    <option value="3">Sometimes</option>
+                    <option value="4">Seldom</option>
+                    <option value="5">Never</option>
+                    <option value="8">Never drive or ride in a car</option>
+                </select>
+                <label for="HIVTST7">Have you ever been tested for HIV, excluding tests related to blood donation?:</label>
+                <select id="HIVTST7" name="HIVTST7">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="HIVRISK5">Have you: Injected any drug not prescribed for you in the past year?; 
+                    Injected any drug not prescribed for you in the past year?; 
+                    Given or received money or drugs for sex in the past year?:</label>
+                <select id="HIVRISK5" name="HIVRISK5">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="HADEXAM">Have you ever had a colonoscopy, mammogram, or prostate (PSA) test?:</label>
+                <select id="HADEXAM" name="HADEXAM">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <label for="SMOKDRINK">Do you smoke cigarettes (or take tobacco products) 
+                    or drink alcohol (equivalent to a 12-ounce beer, 5-ounce glass of wine, or a shot of liquor)?:</label>
+                <select id="SMOKDRINK" name="SMOKDRINK">
+                    <option value="" disabled selected>Select an option</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                </select>
+                <!-- Submit button -->
+                <div class="navigation" id="navigation">
+                <button type="button" class="prev-btn" onclick="showPage(1)">Previous</button>
+                <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div id="result">
+            <h2>Prediction Result</h2>
+            <p>Your probability of cancer is: <span id="probability-of-cancer"></span>%</p>
+            <p style="font-size: 0.8em;"><strong>Disclaimer:</strong>
+            <I>This prediction is based on statistical models and does not constitute a medical diagnosis.
+                If alarmed, consult a healthcare professional for a thorough assessment and personalized advice.
+            </I>
+            </p>
+            <a href="/">Go Back</a>
+        </div>
+    </form>
+    <script>
+
+        function showPage(pageNumber) {
+            const pages = document.querySelectorAll('.question');
+            pages.forEach((page, index) => {
+                if (index === pageNumber - 1) {
+                    page.style.display = 'block';
+                } else {
+                    page.style.display = 'none';
+                }
+            });
+        }
+
+        function submitForm() {
+            var form = document.getElementById('questionnaire-form');
+            var formData = new FormData(form);
+
+            var jsonData = {};
+            formData.forEach((value, key) => {
+                jsonData[key] = value;
+            });
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                // Handle success (e.g., display result, redirect, etc.)
+                // Show the results div and update the content
+                var resultsDiv = document.getElementById('result');
+                var navigationDiv = document.getElementById('navigation');
+                var page2Div = document.getElementById('page2');
+                var probabilitySpan = document.getElementById('probability-of-cancer');
+                
+                probabilitySpan.textContent = data.probability_of_cancer;
+                resultsDiv.style.display = 'block';
+                navigationDiv.style.display = 'none';
+                page2Div.style.display = 'none';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Handle error
+            });
+        }
+
+        // Show the first page initially
+        showPage(1);
+    </script>
+</body>
+</html>
