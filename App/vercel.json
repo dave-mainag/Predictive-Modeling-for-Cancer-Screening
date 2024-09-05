@@ -5,7 +5,8 @@
         "src": "flask_app.py",
         "use": "@vercel/python",
         "config": {
-          "pythonVersion": "3.9"
+          "pythonVersion": "3.9",
+          "buildCommand": "pip install --upgrade pip && pip install -r requirements.txt"
         }
       }
     ],
