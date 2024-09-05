@@ -1,6 +1,11 @@
 # PREDICTIVE MODELLING FOR CANCER SCREENING
 ![Fight against Cancer](Cancer.jpeg)
 
+# Flask Web App
+The Flask WebApp delivers an intuitive interface for interacting with our Capstone project's machine learning model. Users can input data through a web form and receive instant predictions, making it easy to visualize and act on the model’s insights.
+Explore the app, deployed on [Render](https://predictive-modeling-for-cancer-screening.onrender.com), to see the predictive model in action.
+Make sure to fill in all fields and provide accurate data to obtain meaningful predictions.
+
 
 # OVERVIEW
 
