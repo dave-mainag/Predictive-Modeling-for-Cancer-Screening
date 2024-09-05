@@ -1,29 +1,25 @@
 # Flask is the overall web framework
 from flask import Flask, request, render_template, jsonify
-# joblib is used to unpickle the model
+# joblib to unpickle the model/pipeline
 import joblib
-# json is used to prepare the result
+# json for preparing the result
 import json
-# import pandas and numpy
+# pandas and numpy
 import pandas as pd
 import numpy as np
 
-# Libraries to prepocess data before prediction
+# Scikit-learn libraries
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline as skl_Pipeline
 import xgboost as xgb
 
-# create new flask app here
+# Create new flask app here
 app = Flask(__name__)
 
-# helper functions here
+#Helper functions here:
 
-#Function to load the model from the file system (for lazy loading)
-def load_model():
-    with open("xgb_base_model.pkl", "rb") as f:
-        return joblib.load(f)
-#Alternate function to load the xgb model (currently using this function)
+#function to load the xgb model
 def load_xgb():
     xgb_model = xgb.XGBClassifier()
     xgb_model.load_model("xgb_base_model.ubj")
@@ -68,7 +64,7 @@ def cancer_risk_pred_score(FIPS, X_URBSTAT, X_AGEG5YR, SEXVAR, GENHLTH, PHYSHLTH
     # Create a one row dataframe based on user input data
     df = pd.DataFrame(X, columns=cols)
 
-    # Define your bins and labels here (as you did previously)
+    # Define bins and labels for #PHYSHLTH, #MENTHLTH, #SLEPTIM1, #CHILDREN columns (they take numeric values as user input)
     physhlth_bins = [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
     physhlth_bin_labels = ['1-3', '4-6', '7-9', '10-12', '13-15', '16-18', '19-21', '22-24', '25-27', '28-30']
 
@@ -169,7 +165,7 @@ def predict():
                                     HTIN4, DEAF, BLIND, SEATBELT, HIVTST7, HIVRISK5, X_LLCPWT, HADEXAM, SMOKDRINK)
 
     # Return the complement of the cancer probability as a percentage, 
-    # since class 1 represents 'No Cancer' and class 0 represents 'Has Cancer' 
+    # since class 1 represents 'No Cancer' and class 0 represents 'Cancer' 
     # as encoded by the label encoder during the training of the XGB model.
     return jsonify({'probability_of_cancer': round((1 - float(result['probability_of_cancer'])) * 100, 2)})
 
